@@ -69,7 +69,7 @@ jobs:
       env:
         USERNAME: ${{ secrets.USERNAME }}
         SERVER_IP: ${{ secrets.SERVER_IP }}
-      run: scp *.jar $USERNAME@$SERVER_IP:~/cicd
+      run: scp *.jar aedorablee_gmail_com@$SERVER_IP:~/cicd
     - name: Excute remote commands
       run: |
         ssh ${{ USERNAME }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
