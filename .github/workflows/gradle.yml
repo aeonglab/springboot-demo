@@ -67,10 +67,10 @@ jobs:
         ssh-private-key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}
     - name: SCP jar file to server
       env:
-        #USERNAME: ${{ secrets.USERNAME }}
+        USERNAME: ${{ secrets.USERNAME }}
         SERVER_IP: ${{ secrets.SERVER_IP }}
-      run: scp *.jar aedorablee_gmail_com@$SERVER_IP:~/cicd
+      run: scp *.jar $USERNAME@$SERVER_IP:~/cicd
     - name: Excute remote commands
       run: |
-        ssh aedorablee_gmail_com@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
-        ssh aedorablee_gmail_com@${{ secrets.SERVER_IP }} "sudo nohup java -jar ~/cicd/*.jar &"
+        ssh $USERNAME@$SERVER_IP "sudo fuser -k 8080/tcp"
+        ssh $USERNAME@$SERVER_IP "sudo nohup java -jar ~/cicd/*.jar &"
