@@ -65,8 +65,11 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.4
       with: 
         ssh-private-key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}
-    - name: SCP transfer
-      run: scp *.jar ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:~/cicd
+    - name: SCP jar file to server
+      env:
+        USERNAME: ${{ secrets.USERNAME }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+      run: scp *.jar $USERNAME@$SERVER_IP:~/cicd
     - name: Excute remote commands
       run: |
         ssh ${{ USERNAME }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
