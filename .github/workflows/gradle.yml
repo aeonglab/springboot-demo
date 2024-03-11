@@ -64,7 +64,7 @@ jobs:
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.4
       with: 
-        ssh-private-key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.GCP_DEMO_ROOT_PRIVATE_KEY }}
     - name: SCP jar file to server
       env:
         USERNAME: ${{ secrets.USERNAME }}
