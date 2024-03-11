@@ -53,7 +53,7 @@ jobs:
   
   deploy:  
     permissions:
-      contents: none
+      contents: write
     needs: build
     runs-on: ubuntu-latest
     steps:
