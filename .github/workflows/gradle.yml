@@ -81,7 +81,7 @@ jobs:
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.4
       with: 
-      ssh-private-key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}
 
     - name: SCP transfer
       run: scp *.jar ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:~/cicd
