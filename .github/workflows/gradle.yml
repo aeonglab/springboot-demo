@@ -88,6 +88,6 @@ jobs:
 
     - name: Excute remote commands
       run: |
-        ssh ${{ USERNAME }}@${{ secrets.SERVER_ip }} "sudo fuser -k 8080/tcp"
-        ssh ${{ USERNAME }}@${{ secrets.SERVER_ip }} "sudo nohup java -jar ~/cicd/*.jar &"
+        ssh ${{ USERNAME }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
+        ssh ${{ USERNAME }}@${{ secrets.SERVER_IP }} "sudo nohup java -jar ~/cicd/*.jar &"
 
