@@ -48,8 +48,16 @@ jobs:
         username: ${{ secrets.USERNAME }} # SSH 계정 이름
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}  # SSH Port
-        script: |
-          cd /home/aedorablee_gmail_com/artifact/build/libs/  # 전송된 JAR 파일이 위치한 디렉토리로 이동
-          sudo systemctl stop java  # 서비스 중단
-          mv springaj-0.0.1-SNAPSHOT.jar app.jar  # JAR 파일 이름 변경
-          sudo systemctl start java  # 서비스 시작
+        run: |
+          chmod +x ./script/app_stop.sh
+          ./script/app_stop.sh
+          chmod +x ./script/app_status_check.sh
+          ./script/app_status_check.sh
+          chmod +x ./script/app_start.sh
+          ./script/app_start.sh
+          
+        #script: |
+        #  cd /home/aedorablee_gmail_com/artifact/build/libs/  # 전송된 JAR 파일이 위치한 디렉토리로 이동
+        #  sudo systemctl stop java  # 서비스 중단
+        #  mv springaj-0.0.1-SNAPSHOT.jar app.jar  # JAR 파일 이름 변경
+        #  sudo systemctl start java  # 서비스 시작
