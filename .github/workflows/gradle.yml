@@ -46,7 +46,7 @@ jobs:
         username: ${{ secrets.USERNAME }}  # SSH 계정 이름
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}
-        source: "build/libs/*.jar"  # 빌드된 JAR 파일 경로
+        source: "build/libs/springaj-0.0.1-SNAPSHOT.jar"  # 빌드된 JAR 파일 경로
         target: "/home/aedorablee_gmail_com/artifact"  # GCP VM에 전송할 디렉토리 경로
     - name: SSH into GCP VM and deploy
       uses: appleboy/ssh-action@master
