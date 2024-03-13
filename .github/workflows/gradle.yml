@@ -51,10 +51,13 @@ jobs:
         run: |
           chmod +x ./script/app_stop.sh
           ./script/app_stop.sh
+          echo "service stop"
           chmod +x ./script/app_status_check.sh
           ./script/app_status_check.sh
+          echo "service check"
           chmod +x ./script/app_start.sh
           ./script/app_start.sh
+          echo "new application start"
           
         #script: |
         #  cd /home/aedorablee_gmail_com/artifact/build/libs/  # 전송된 JAR 파일이 위치한 디렉토리로 이동
