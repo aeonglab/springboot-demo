@@ -54,6 +54,7 @@ jobs:
           sudo ./script/app_stop.sh
           echo "service stop"
           mv springaj-0.0.1-SNAPSHOT.jar app.jar
+          chmod +x ./script/app_start.sh
           chmod +x ./script/app_status_check.sh
           sudo ./script/app_status_check.sh
           echo "service check"
