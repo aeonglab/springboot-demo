@@ -33,12 +33,12 @@ jobs:
       run: ls -l build/libs/
       
   
-  deploy:  
-    permissions:
-      contents: write
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+  #deploy:  
+  #  permissions:
+  #    contents: write
+  #  needs: build
+  #  runs-on: ubuntu-latest
+  #  steps:
     - name: Check
       run: ls -l build/libs/
     - name: Transfer JAR file to GCP VM
