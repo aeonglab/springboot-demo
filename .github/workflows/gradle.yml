@@ -29,11 +29,11 @@ jobs:
       run: chmod +x ./gradlew    
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-   # - name: Upload Artifact for deployment
-   #   uses: actions/upload-artifact@v2
-   #   with:
-   #     name: springaj
-   #     path: build/libs/*.jar
+    - name: Upload Artifact for deployment
+      uses: actions/upload-artifact@v2
+      with:
+        name: springaj
+        path: build/libs/*.jar
   
   deploy:  
     #permissions:
@@ -49,7 +49,7 @@ jobs:
         key: ${{ secrets.GCP_DEMO_ROOT_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}
         source: "build/libs/*.jar"  # 빌드된 JAR 파일 경로
-        target: "/home/aedorablee_gmail_com/cicd"  # GCP VM에 전송할 디렉토리 경로
+        target: "/home/aedorablee_gmail_com/artifact"  # GCP VM에 전송할 디렉토리 경로
     - name: SSH into GCP VM and deploy
       uses: appleboy/ssh-action@master
       with:
@@ -58,9 +58,9 @@ jobs:
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}  # SSH 포트 번호
         script: |
-          cd /home/aedorablee_gmail_com/cicd/  # 전송된 JAR 파일이 위치한 디렉토리로 이동
+          cd /home/aedorablee_gmail_com/artifact/  # 전송된 JAR 파일이 위치한 디렉토리로 이동
           sudo systemctl stop java  # 서비스 중단
-          mv *.jar app.jar  # JAR 파일 이름 변경
+          mv springaj-0.0.1-SNAPSHOT.jar app.jar  # JAR 파일 이름 변경
           sudo systemctl start java  # 서비스 시작
     #- name: Download artifact from build job
     #  uses: actions/download-artifact@v3
