@@ -39,6 +39,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: Check
+      run: ls -l build/libs/
     - name: Transfer JAR file to GCP VM
       uses: appleboy/scp-action@master
       with:
