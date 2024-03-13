@@ -1,10 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
 name: Java CI with Gradle
 
 on:
@@ -29,25 +22,23 @@ jobs:
       run: chmod +x ./gradlew    
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-    - name: Check
-      run: ls -l build/libs/
-      
-  
+  #  - name: Check
+  #    run: ls -l build/libs/
   #deploy:  
   #  permissions:
   #    contents: write
   #  needs: build
   #  runs-on: ubuntu-latest
   #  steps:
-    - name: Check
-      run: ls -l build/libs/
-    - name: Transfer JAR file to GCP VM
+  #  - name: Check
+  #    run: ls -l build/libs/
+    - name: SCP artifact file to VM
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SERVER_IP }}  # GCP VM의 IP 주소
         username: ${{ secrets.USERNAME }}  # SSH 계정 이름
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
-        port: ${{ secrets.PORT }}
+        port: ${{ secrets.PORT }}  # SSH Port
         source: "./build/libs/springaj-0.0.1-SNAPSHOT.jar"  # 빌드된 JAR 파일 경로
         target: "/home/aedorablee_gmail_com/artifact"  # GCP VM에 전송할 디렉토리 경로
     - name: SSH into GCP VM and deploy
@@ -56,26 +47,9 @@ jobs:
         host: ${{ secrets.SERVER_IP }}  # GCP VM의 IP 주소
         username: ${{ secrets.USERNAME }} # SSH 계정 이름
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
-        port: ${{ secrets.PORT }}  # SSH 포트 번호
+        port: ${{ secrets.PORT }}  # SSH Port
         script: |
           cd /home/aedorablee_gmail_com/artifact/build/libs/  # 전송된 JAR 파일이 위치한 디렉토리로 이동
           sudo systemctl stop java  # 서비스 중단
           mv springaj-0.0.1-SNAPSHOT.jar app.jar  # JAR 파일 이름 변경
           sudo systemctl start java  # 서비스 시작
-    #- name: Download artifact from build job
-    #  uses: actions/download-artifact@v3
-    #  with:
-    #    name: springaj
-    #- name: Setup SSH
-    #  uses: webfactory/ssh-agent@v0.5.4
-    #  with: 
-    #    ssh-private-key: ${{ secrets.GCP_DEMO_ROOT_PRIVATE_KEY }}
-    #- name: SCP jar file to server
-    #  env:
-    #    USERNAME: ${{ secrets.USERNAME }}
-    #    SERVER_IP: ${{ secrets.SERVER_IP }}
-    #  run: scp *.jar $USERNAME@$SERVER_IP:~/cicd
-    #- name: Excute remote commands
-    #  run: |
-    #    ssh $USERNAME@$SERVER_IP "sudo fuser -k 8080/tcp"
-    #    ssh $USERNAME@$SERVER_IP "sudo nohup java -jar ~/cicd/*.jar &"
