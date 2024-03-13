@@ -51,14 +51,14 @@ jobs:
         script: |
           cd /home/aedorablee_gmail_com/artifact/build/libs/
           chmod +x ./script/app_stop.sh
-          ./script/app_stop.sh
+          sudo ./script/app_stop.sh
           echo "service stop"
           mv springaj-0.0.1-SNAPSHOT.jar app.jar
           chmod +x ./script/app_status_check.sh
-          ./script/app_status_check.sh
+          sudo ./script/app_status_check.sh
           echo "service check"
           chmod +x ./script/app_start.sh
-          ./script/app_start.sh
+          sudo ./script/app_start.sh
           echo "new application start"
           
         #script: |
