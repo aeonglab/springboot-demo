@@ -34,8 +34,8 @@ jobs:
       
   
   deploy:  
-    #permissions:
-    #  contents: write
+    permissions:
+      contents: write
     needs: build
     runs-on: ubuntu-latest
     steps:
