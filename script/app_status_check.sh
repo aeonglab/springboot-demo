@@ -7,4 +7,5 @@ if [ $STATUS -eq 200 ]; then
 else
   echo "FAILED, Rollback application"
   cp /home/aedorablee_gmail_com/artifact_v1/app.jar /home/aedorablee_gmail_com/artifact/build/libs/
+  sudo systemctl restart java
 fi
