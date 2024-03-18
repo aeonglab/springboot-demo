@@ -42,7 +42,6 @@ jobs:
         source: "./build/libs/springaj-0.0.1-SNAPSHOT.jar"  # 빌드된 JAR 파일 경로
         target: "/home/aedorablee_gmail_com/spring/deploy/"  # GCP VM에 전송할 디렉토리 경로
         strip_components: 3
-        run: ls -l /home/aedorablee_gmail_com/spring/deploy
     - name: SSH into GCP VM and deploy
       uses: appleboy/ssh-action@master
       with:
@@ -51,6 +50,7 @@ jobs:
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}  # SSH Port
         script: |
+          ls -l /home/aedorablee_gmail_com/spring/deploy
           cd /home/aedorablee_gmail_com/spring
           chmod +x ./script/app_stop.sh
           sudo ./script/app_stop.sh
