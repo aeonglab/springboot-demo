@@ -55,7 +55,7 @@ jobs:
           chmod +x ./script/app_stop.sh
           sudo ./script/app_stop.sh
           echo "service stop"
-          sleep 10
+          sleep 30
           chmod +x ./script/switch_dir.sh
           sudo ./script/switch_dir.sh
           echo "switch dir"
