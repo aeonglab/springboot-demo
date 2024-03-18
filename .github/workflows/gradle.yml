@@ -40,7 +40,7 @@ jobs:
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}  # SSH Port
         source: "./build/libs/springaj-0.0.1-SNAPSHOT.jar"  # 빌드된 JAR 파일 경로
-        target: "/home/aedorablee_gmail_com/artifact"  # GCP VM에 전송할 디렉토리 경로
+        target: "/home/aedorablee_gmail_com/spring/deploy/"  # GCP VM에 전송할 디렉토리 경로
         strip_components: 3
     - name: SSH into GCP VM and deploy
       uses: appleboy/ssh-action@master
@@ -50,12 +50,14 @@ jobs:
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}  # SSH Port
         script: |
-          cd /home/aedorablee_gmail_com/artifact/
+          cd /home/aedorablee_gmail_com/spring
           chmod +x ./script/app_stop.sh
           sudo ./script/app_stop.sh
           echo "service stop"
           sleep 10
-          mv springaj-0.0.1-SNAPSHOT.jar app.jar
+          chmod +x ./script/switch_dir.sh
+          sudo ./script/switch_dir.sh
+          # mv springaj-0.0.1-SNAPSHOT.jar app.jar
           chmod +x ./script/app_start.sh
           sudo ./script/app_start.sh
           sleep 10
