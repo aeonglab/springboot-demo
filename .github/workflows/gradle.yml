@@ -55,13 +55,13 @@ jobs:
           chmod +x ./script/app_stop.sh
           sudo ./script/app_stop.sh
           echo "service stop"
-          sleep 30
+          sleep 60
           chmod +x ./script/switch_dir.sh
           sudo ./script/switch_dir.sh
           echo "switch dir"
           chmod +x ./script/app_start.sh
           sudo ./script/app_start.sh
-          sleep 10
+          sleep 60
           chmod +x ./script/app_status_check.sh
           sudo ./script/app_status_check.sh
           echo "service check"
