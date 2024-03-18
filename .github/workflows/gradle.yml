@@ -50,7 +50,7 @@ jobs:
         key: ${{ secrets.GCP_DEMO_PRIVATE_KEY }}  # SSH 개인 키
         port: ${{ secrets.PORT }}  # SSH Port
         script: |
-          cd /home/aedorablee_gmail_com/artifact/build/libs/
+          cd /home/aedorablee_gmail_com/artifact/
           chmod +x ./script/app_stop.sh
           sudo ./script/app_stop.sh
           echo "service stop"
