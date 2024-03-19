@@ -44,6 +44,8 @@ jobs:
           mv ./deploy/springaj-0.0.1-SNAPSHOT.jar ./deploy/app.jar 
           chmod +x ./script/app_start.sh
           sudo ./script/app_start.sh
+          echo "start script done"
           sleep 30
           chmod +x ./script/app_status_check.sh
           sudo ./script/app_status_check.sh
+          echo "status check script done"
