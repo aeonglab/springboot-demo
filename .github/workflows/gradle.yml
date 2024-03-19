@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: Springboot CICD Pipeline
 
 on:
   push:
@@ -22,16 +22,6 @@ jobs:
       run: chmod +x ./gradlew    
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-  #  - name: Check
-  #    run: ls -l build/libs/
-  #deploy:  
-  #  permissions:
-  #    contents: write
-  #  needs: build
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #  - name: Check
-  #    run: ls -l build/libs/
     - name: SCP artifact file to VM
       uses: appleboy/scp-action@master
       with:
