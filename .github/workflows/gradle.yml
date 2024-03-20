@@ -48,7 +48,7 @@ jobs:
           sudo ./script/app_start.sh
           ls -l /home/aedorablee_gmail_com/spring/log/deploy
           echo "start script done"
-          sleep 30
+          sleep 60
           chmod +x ./script/app_status_check.sh
           sudo ./script/app_status_check.sh
           echo "status check script done"
