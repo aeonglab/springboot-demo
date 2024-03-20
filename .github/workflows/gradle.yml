@@ -32,6 +32,7 @@ jobs:
         source: "./build/libs/springaj-0.0.1-SNAPSHOT.jar"  # 빌드된 JAR 파일 경로
         target: "/home/aedorablee_gmail_com/spring/deploy/"  # GCP VM에 전송할 디렉토리 경로
         strip_components: 3
+        run: ls -l /home/aedorablee_gmail_com/spring/deploy/
     - name: SSH into GCP VM and deploy
       uses: appleboy/ssh-action@master
       with:
