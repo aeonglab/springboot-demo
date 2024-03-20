@@ -1,4 +1,4 @@
-name: Springboot CICD Pipeline
+name: [GCP]Springboot CICD Pipeline
 
 on:
   push:
