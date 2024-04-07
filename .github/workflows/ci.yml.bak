@@ -1,0 +1,43 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches:
+      - dev
+      - stg
+      - prd
+
+env:
+  AWS_REGION: eu-west-1    # GCP로 변경
+
+permission:
+  contents: read
+
+jobs:
+  build:
+    runs-on: [ code-linux, code-default ]   # 삼성의 runner server
+    environment: ${{ github.ref_name }}     # workflow 실행을 trigger한 분기
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: action/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    # 배포 환경(branch)에 따른 DEPLOY_ENV 값 세팅
+    - name: Set DEPLOY_ENV variable
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+          echo "DEPLOY_ENV=dev" >> $GITHUB_ENV
+        elif [ "${{ github.ref }}" == "refs/heads/stg" ]; then
+          echo "DEPLOY_ENV=stg" >> $GITHUB_ENV
+        elif [ "${{ github.ref }}" == "refs/heads/prd" ]; then
+          echo "DEPLOY_ENV=prd" >> $GITHUB_ENV
+        fi
+
+    # 개발 환경에 따른 KEY 값 (Secret 참조)
+    - name: Set Account
+      run: }
+        if [ ${{env.DEPLOY_ENV }} == 'dev' ]; then
+        echo "AWS_ACCOUNT_SECRET=${{ secrets.DEV_AWS

@@ -1,54 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
-	<properties>
-		<property name="service_name">springaj</property>
-		<property name="log_path">$(sys:user.home}/${service_name}/logs</property>
-	</properties>
-	<Appenders>
-		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout
-				pattern="$d{yyyy-MM-dd HH:mm:ss}  [$thread][%-5level][$class{0}] %msg%n" />
-		</Console>
-
-		<RollingFile name="RollingFile"
-			     fileName="${log_path}/$${date:yyyy-MM-dd/log_${service_name}_%d{dd-MM-yyyy}-%i.log.gz">
-			<PatternLayout>
-				<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [$thread][%-5level][$class{0}] %msg%n"</pattern>
-			</PatternLayout>
+<Configuration status="INFO">
+	<Properties>
+		<Property name="SERVICE_NAME">springaj</Property>
+		<Property name="LOG_DIR">/log</Property>
+		<Property name="UTC_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}</Property>
+		<Property name="KST_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}</Property>
+	</Properties>
+	<Appenders>  <!--layout을 통해 log format 설정 및 log 제공 방식 결정 -->
+		<RollingFile name="RollingFile" fileName="${LOG_DIR}/springaj_utc.log"
+			     filePattern="${LOG_DIR}/log_%d{yyyy-MM-dd_HH}.log">
+			<PatternLayout pattern="${UTC_PATTERN} [%thread] %-5level %logger{35} - %msg%n"/>
 			<Policies>
-				<!-- rollover on startup, daily and when the file reaches 10MB -->
-				<OnStartupTriggeringPolicy />
-				<SizeBasedTriggeringPolicy 
-					size="100 MB" />
-				<TimeBasedTriggeringPolicy />
+				<TimeBasedTriggeringPolicy/>
 			</Policies>
+			<DefaultRolloverStrategy max="7"/>
 		</RollingFile>
-		<RollingFile name="RollingFileForAccess"
-			     fileName="${log+path}/access.log"
-			     filePattern="${log_path}/$${date:yyyy-MM-dd}/access-$d{dd-MM-yyyy}-%i.log.gz">
-			<PatternLayout>
-				<pattern>$d{ISO8601} [%t] %-5p %c %x - %m%n</pattern>
-			</PatternLayout>
+		<RollingFile name="KST_RollingFile" fileName="${LOG_DIR}/springaj_kst.log"
+			     filePattern="${LOG_DIR}/log_kst_%d{yyyy-MM-dd_HH}.log">
+			<PatternLayout pattern="${KST_PATTERN} [%thread] %-5level %logger{35} - %msg%n"/>
 			<Policies>
-				<!-- rollover on startup, daily and when the file reaches 10 MB -->
-				<OnStartupTriggeringPolicy />
-				<SizeBasedTriggeringPolicy 
-					size="100 MB" />
-				<TimeBasedTriggeringPolicy />
+				<TimeBasedTriggeringPolicy/>
 			</Policies>
+			<DefaultRolloverStrategy max="7"/>
 		</RollingFile>
+	</Appenders>
 	<Loggers>
-		<!-- LOG everything at INFO level -->
 		<Root level="info">
-			<AppenderRef ref="Console" />
-			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="RollingFile"/>
+			<AppenderRef ref="KST_RollingFile"/>
 		</Root>
-		<!-- LOG "com.sec*" at TRACE level -->
-		<Logger name="com.sec" level="info"></Logger>
-		<Logger name="org.hibernate.SQL" level="debug"></Logger>
-		<Logger name="org.springframework.jdbc" level="info"></Logger>
 	</Loggers>
-
 </Configuration>
-
 
